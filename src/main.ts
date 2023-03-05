@@ -4,6 +4,8 @@ import App from "./App.vue";
 import "@/styles/reset.scss";
 // CSS common style sheet
 import "@/styles/common.scss";
+// tailwind css
+import "@/styles/tailwind.css";
 // iconfont css
 import "@/assets/iconfont/iconfont.scss";
 // font css
