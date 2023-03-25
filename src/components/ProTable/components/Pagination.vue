@@ -1,12 +1,12 @@
 <template>
 	<!-- 分页组件 -->
 	<el-pagination
-		:current-page="pageable.pageNum"
-		:page-size="pageable.pageSize"
+		:current-page="pageable.current"
+		:page-size="pageable.limit"
 		:page-sizes="[10, 25, 50, 100]"
 		:background="true"
 		layout="total, sizes, prev, pager, next, jumper"
-		:total="pageable.total"
+		:total="pageable.count"
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
 	></el-pagination>
@@ -14,9 +14,9 @@
 
 <script setup lang="ts" name="Pagination">
 interface Pageable {
-	pageNum: number;
-	pageSize: number;
-	total: number;
+	current: number;
+	limit: number;
+	count: number;
 }
 
 interface PaginationProps {

@@ -20,11 +20,11 @@ export const useTable = (
 		// 分页数据
 		pageable: {
 			// 当前页数
-			pageNum: 1,
+			current: 1,
 			// 每页显示条数
-			pageSize: 10,
+			limit: 15,
 			// 总条数
-			total: 0
+			count: 0
 		},
 		// 查询参数(只包括查询)
 		searchParam: {},
@@ -40,8 +40,8 @@ export const useTable = (
 	const pageParam = computed({
 		get: () => {
 			return {
-				pageNum: state.pageable.pageNum,
-				pageSize: state.pageable.pageSize
+				page: state.pageable.current,
+				limit: state.pageable.limit
 			};
 		},
 		set: (newVal: any) => {
@@ -57,12 +57,13 @@ export const useTable = (
 		try {
 			// 先把初始化参数和分页参数放到总参数里面
 			Object.assign(state.totalParam, initParam, isPageable ? pageParam.value : {});
-			let { data } = await api({ ...state.searchInitParam, ...state.totalParam });
+			let data = await api({ ...state.searchInitParam, ...state.totalParam });
 			dataCallBack && (data = dataCallBack(data));
-			state.tableData = isPageable ? data.list : data;
+			// state.tableData = isPageable ? data.list : data;
+			state.tableData = data.data;
 			// 解构后台返回的分页数据 (如果有分页更新分页信息)
-			const { pageNum, pageSize, total } = data;
-			isPageable && updatePageable({ pageNum, pageSize, total });
+			const { current, limit, count } = data;
+			isPageable && updatePageable({ current, limit, count });
 		} catch (error) {
 			console.log(error);
 		}
@@ -100,7 +101,7 @@ export const useTable = (
 	 * @return void
 	 * */
 	const search = () => {
-		state.pageable.pageNum = 1;
+		state.pageable.current = 1;
 		updatedTotalParam();
 		getTableList();
 	};
@@ -110,7 +111,7 @@ export const useTable = (
 	 * @return void
 	 * */
 	const reset = () => {
-		state.pageable.pageNum = 1;
+		state.pageable.current = 1;
 		state.searchParam = {};
 		// 重置搜索表单的时，如果有默认搜索参数，则重置默认的搜索参数
 		Object.keys(state.searchInitParam).forEach(key => {
@@ -126,8 +127,8 @@ export const useTable = (
 	 * @return void
 	 * */
 	const handleSizeChange = (val: number) => {
-		state.pageable.pageNum = 1;
-		state.pageable.pageSize = val;
+		state.pageable.current = 1;
+		state.pageable.limit = val;
 		getTableList();
 	};
 
@@ -137,7 +138,7 @@ export const useTable = (
 	 * @return void
 	 * */
 	const handleCurrentChange = (val: number) => {
-		state.pageable.pageNum = val;
+		state.pageable.current = val;
 		getTableList();
 	};
 

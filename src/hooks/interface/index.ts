@@ -1,8 +1,8 @@
 export namespace Table {
 	export interface Pageable {
-		pageNum: number;
-		pageSize: number;
-		total: number;
+		current: number;
+		limit: number;
+		count: number;
 	}
 	export interface TableStateProps {
 		tableData: any[];

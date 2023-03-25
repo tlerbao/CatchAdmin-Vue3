@@ -23,7 +23,7 @@ export const GlobalStore = defineStore({
 			// 当前页面是否全屏
 			maximize: false,
 			// 布局切换 ==>  纵向：vertical | 经典：classic | 横向：transverse | 分栏：columns
-			layout: "vertical",
+			layout: "columns",
 			// 默认 primary 主题颜色
 			primary: DEFAULT_PRIMARY,
 			// 深色模式

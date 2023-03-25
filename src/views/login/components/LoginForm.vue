@@ -15,7 +15,7 @@
 			</el-input>
 		</el-form-item>
 	</el-form>
-	<div class="login-btn">
+	<div class="login-bt">
 		<el-button :icon="CircleClose" round @click="resetForm(loginFormRef)" size="large">重置</el-button>
 		<el-button :icon="UserFilled" round @click="login(loginFormRef)" size="large" type="primary" :loading="loading">
 			登录
@@ -37,7 +37,6 @@ import { HOME_URL } from "@/config/config";
 import { initDynamicRouter } from "@/routers/modules/dynamicRouter";
 import { CircleClose, UserFilled } from "@element-plus/icons-vue";
 import type { ElForm } from "element-plus";
-import md5 from "js-md5";
 
 const router = useRouter();
 const tabsStore = TabsStore();
@@ -53,7 +52,7 @@ const loginRules = reactive({
 });
 
 const loading = ref(false);
-const loginForm = reactive<Login.ReqLoginForm>({ username: "", password: "" });
+const loginForm = reactive<Login.ReqLoginForm>({ username: "admin", password: "catchAdmin" });
 const login = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.validate(async valid => {
@@ -61,8 +60,9 @@ const login = (formEl: FormInstance | undefined) => {
 		loading.value = true;
 		try {
 			// 1.执行登录接口
-			const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
-			globalStore.setToken(data.access_token);
+			const { data } = await loginApi({ ...loginForm, password: loginForm.password });
+			globalStore.setToken(data.token);
+			globalStore.setUserInfo(data.user);
 
 			// 2.添加动态路由
 			await initDynamicRouter();
@@ -75,7 +75,7 @@ const login = (formEl: FormInstance | undefined) => {
 			router.push(HOME_URL);
 			ElNotification({
 				title: getTimeState(),
-				message: "欢迎登录 Geeker-Admin",
+				message: "欢迎登录 Catch-Admin",
 				type: "success",
 				duration: 3000
 			});

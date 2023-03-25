@@ -1,7 +1,7 @@
 // * 请求响应参数(不包含data)
 export interface Result {
 	code: string;
-	msg: string;
+	message: string;
 }
 
 // * 请求响应参数(包含data)
@@ -11,16 +11,16 @@ export interface ResultData<T = any> extends Result {
 
 // * 分页响应参数
 export interface ResPage<T> {
-	list: T[];
-	pageNum: number;
-	pageSize: number;
-	total: number;
+	data: T[];
+	current: number;
+	limit: number;
+	count: number;
 }
 
 // * 分页请求参数
 export interface ReqPage {
-	pageNum: number;
-	pageSize: number;
+	current: number;
+	limit: number;
 }
 
 // * 文件上传模块
@@ -37,7 +37,23 @@ export namespace Login {
 		password: string;
 	}
 	export interface ResLogin {
-		access_token: string;
+		token: string;
+		user: {
+			id: number;
+			username: string;
+			password: string;
+			email: string;
+			avatar: string;
+			remember_token: string;
+			creator_id: number;
+			department_id: number;
+			status: number;
+			last_login_ip: string;
+			last_login_time: number;
+			created_at: string;
+			updated_at: string;
+			deleted_at: number;
+		};
 	}
 	export interface ResAuthButtons {
 		[key: string]: string[];

@@ -1,11 +1,12 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+
 // reset style sheet
 import "@/styles/reset.scss";
-// CSS common style sheet
-import "@/styles/common.scss";
 // tailwind css
 import "@/styles/tailwind.css";
+// CSS common style sheet
+import "@/styles/common.scss";
 // iconfont css
 import "@/assets/iconfont/iconfont.scss";
 // font css

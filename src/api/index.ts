@@ -34,7 +34,8 @@ class RequestHttp {
 				// * 如果当前请求不需要显示 loading,在 api 服务中通过指定的第三个参数: { headers: { noLoading: true } }来控制不显示loading，参见loginApi
 				config.headers!.noLoading || showFullScreenLoading();
 				const token = globalStore.token;
-				if (config.headers && typeof config.headers?.set === "function") config.headers.set("x-access-token", token);
+				// if (config.headers && typeof config.headers?.set === "function") config.headers.set("x-access-token", token);
+				if (config.headers && typeof config.headers?.set === "function") config.headers.set("authorization", "Bearer " + token);
 				return config;
 			},
 			(error: AxiosError) => {
@@ -54,14 +55,14 @@ class RequestHttp {
 				tryHideFullScreenLoading();
 				// * 登陆失效（code == 401）
 				if (data.code == ResultEnum.OVERDUE) {
-					ElMessage.error(data.msg);
+					ElMessage.error(data.message);
 					globalStore.setToken("");
 					router.replace(LOGIN_URL);
 					return Promise.reject(data);
 				}
 				// * 全局错误信息拦截（防止下载文件得时候返回数据流，没有code，直接报错）
 				if (data.code && data.code !== ResultEnum.SUCCESS) {
-					ElMessage.error(data.msg);
+					ElMessage.error(data.message);
 					return Promise.reject(data);
 				}
 				// * 成功请求（在页面上除非特殊情况，否则不用在页面处理失败逻辑）

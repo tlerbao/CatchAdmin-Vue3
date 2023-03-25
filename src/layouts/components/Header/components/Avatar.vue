@@ -71,7 +71,7 @@ const openDialog = (refName: string) => {
 	height: 40px;
 	overflow: hidden;
 	cursor: pointer;
-	border-radius: 50%;
+	border-radius: 16%;
 	img {
 		width: 100%;
 		height: 100%;

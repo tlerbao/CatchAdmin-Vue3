@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { AuthState } from "@/stores/interface";
 import { getFlatArr } from "@/utils/util";
-import { getAuthButtonListApi, getAuthMenuListApi } from "@/api/modules/login";
+import { getAuthButtonListApi, getAuthMenuListApi, getUserInfoApi } from "@/api/modules/login";
 import { getShowMenuList, getAllBreadcrumbList } from "@/utils/util";
 
 // AuthStore
@@ -13,9 +13,12 @@ export const AuthStore = defineStore({
 		// 按钮权限列表
 		authButtonList: {},
 		// 菜单权限列表
-		authMenuList: []
+		authMenuList: [],
+		authPermissions: []
 	}),
 	getters: {
+		// 全部权限
+		authPermissionsGet: state => state.authPermissions,
 		// 按钮权限列表
 		authButtonListGet: state => state.authButtonList,
 		// 后端返回的菜单列表 ==> 这里没有经过任何处理
@@ -28,6 +31,11 @@ export const AuthStore = defineStore({
 		breadcrumbListGet: state => getAllBreadcrumbList(state.authMenuList)
 	},
 	actions: {
+		async getUserInfoList() {
+			const { data } = await getUserInfoApi();
+			this.authMenuList = data.menu_list;
+			this.authPermissions = data.permissions;
+		},
 		// getAuthButtonList
 		async getAuthButtonList() {
 			const { data } = await getAuthButtonListApi();
