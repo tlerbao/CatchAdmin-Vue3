@@ -86,6 +86,7 @@ export namespace User {
 		createTime: string;
 		status: number;
 		avatar: string;
+		photo: any[];
 		children?: ResUserList[];
 	}
 	export interface ResStatus {
