@@ -73,17 +73,17 @@ export const clearCache = (params: any) => {
 
 // 获取系统配置
 export const getSystemConfig = () => {
-	return http.get(`config/parent`, {}, { headers: { noLoading: true } });
+	return http.get(`config/parent`, {});
 };
 
 // 读取配置
 export const getConfig = (params: { name: string }) => {
-	return http.get(`config/` + params.name, {}, { headers: { noLoading: true } });
+	return http.get(`config/` + params.name, {});
 };
 
 // 保存配置
 export const saveConfig = (params: any) => {
-	return http.post(`config`, params, { headers: { noLoading: true } });
+	return http.post(`config`, params);
 };
 
 // 开发者列表

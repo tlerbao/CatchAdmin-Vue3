@@ -2,17 +2,17 @@ import http from "@/api";
 
 // 获取短信配置
 export const getSmsConfig = (name: string) => {
-	return http.get(`/sms/config/` + name, {}, { headers: { noLoading: true } });
+	return http.get(`/sms/config/` + name, {});
 };
 
 // 保存短信配置
 export const saveSmsConfig = (params: any) => {
-	return http.post(`/sms/config`, params, { headers: { noLoading: true } });
+	return http.post(`/sms/config`, params);
 };
 
 // 获取短信模板
 export const getSmsTemplateList = (params: any) => {
-	return http.get(`/sms/template`, params, { headers: { noLoading: true } });
+	return http.get(`/sms/template`, params);
 };
 
 // 新增短信模板

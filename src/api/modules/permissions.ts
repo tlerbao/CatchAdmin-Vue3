@@ -54,17 +54,17 @@ export const deleteRole = (params: { id: number }) => {
 
 // 菜单列表
 export const getRuleList = (params: Rule.ReqRuleParams = {}) => {
-	return http.get<ResultData<Rule.ResRuleList>>(`/permissions`, params, { headers: { noLoading: true } });
+	return http.get<ResultData<Rule.ResRuleList>>(`/permissions`, params);
 };
 
 // 获取菜单列表 For 选择器
 export const getRuleOptions = (params: any = {}) => {
-	return http.get(`/permissions/options`, params, { headers: { noLoading: true } });
+	return http.get(`/permissions/options`, params);
 };
 
 // 获取模块列表 For 选择器
 export const getModuleOptions = (params: any = {}) => {
-	return http.get(`/permissions/modules`, params, { headers: { noLoading: true } });
+	return http.get(`/permissions/modules`, params);
 };
 
 // 新增菜单
@@ -84,7 +84,7 @@ export const deleteRule = (params: { id: number }) => {
 
 // 部门列表
 export const getDepartmentList = (params: Department.ReqDepartmentParams = {}) => {
-	return http.get<ResultData<Department.ResDepartmentList>>(`/departments`, params, { headers: { noLoading: true } });
+	return http.get<ResultData<Department.ResDepartmentList>>(`/departments`, params);
 };
 
 // 新增部门
@@ -109,7 +109,7 @@ export const getJobList = (params: Job.ReqJobParams = {}) => {
 
 // 所有岗位
 export const getAllJobList = () => {
-	return http.get(`/jobs/all`, {}, { headers: { noLoading: true } });
+	return http.get(`/jobs/all`, {});
 };
 
 // 新增岗位
